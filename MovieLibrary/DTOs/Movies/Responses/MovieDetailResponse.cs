@@ -1,4 +1,6 @@
-﻿namespace MovieLibrary.DTOs.Movies.Responses
+﻿using MovieLibrary.DTOs.Common;
+
+namespace MovieLibrary.DTOs.Movies.Responses
 {
     public class MovieDetailResponse
     {

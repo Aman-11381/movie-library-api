@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using MovieLibrary.Data;
+using MovieLibrary.Services.Movies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MovieLibraryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 
@@ -27,5 +30,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MovieLibraryDbContext>();
+    await DataSeeder.SeedAsync(db);
+}
 
 app.Run();
