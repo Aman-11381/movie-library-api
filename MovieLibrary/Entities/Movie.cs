@@ -17,5 +17,6 @@
         public Country Country { get; set; }
         public List<MovieGenre> MovieGenres { get; set; }
         public List<MovieActor> MovieActors { get; set; }
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

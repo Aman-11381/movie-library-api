@@ -17,6 +17,8 @@ public class MovieLibraryDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<MovieGenre> MovieGenres { get; set; }
     public DbSet<MovieActor> MovieActors { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,6 +50,18 @@ public class MovieLibraryDbContext : IdentityDbContext<ApplicationUser>
             .HasOne(ma => ma.Actor)
             .WithMany(a => a.MovieActors)
             .HasForeignKey(ma => ma.ActorId);
+
+        modelBuilder.Entity<Review>()
+            .HasOne(r => r.Movie)
+            .WithMany(m => m.Reviews)
+            .HasForeignKey(r => r.MovieId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Review>()
+            .HasOne(r => r.User)
+            .WithMany()
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
     }

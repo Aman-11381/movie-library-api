@@ -2,6 +2,7 @@
 using MovieLibrary.DTOs.Common;
 using MovieLibrary.DTOs.Movies;
 using MovieLibrary.DTOs.Movies.Responses;
+using MovieLibrary.DTOs.Reviews.Response;
 using MovieLibrary.Entities;
 
 namespace MovieLibrary.Services.Movies
@@ -68,10 +69,30 @@ namespace MovieLibrary.Services.Movies
                 .Include(m => m.Country)
                 .Include(m => m.MovieGenres).ThenInclude(mg => mg.Genre)
                 .Include(m => m.MovieActors).ThenInclude(ma => ma.Actor)
+                .Include(m => m.Reviews).ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (movie == null)
                 return null;
+
+            var totalReviews = movie.Reviews.Count;
+            double averageRating = totalReviews > 0
+                ? movie.Reviews.Average(r => r.Rating)
+                : 0;
+
+            var reviewDtos = movie.Reviews
+                .Select(r => new ReviewResponse
+                {
+                    Id = r.Id,
+                    MovieId = r.MovieId,
+                    Rating = r.Rating,
+                    Comment = r.Comment,
+                    UserId = r.UserId,
+                    UserEmail = r.User.Email,
+                    CreatedAt = r.CreatedAt,
+                    UpdatedAt = r.UpdatedAt
+                })
+                .ToList();
 
             var response = new MovieDetailResponse
             {
@@ -104,7 +125,10 @@ namespace MovieLibrary.Services.Movies
                         Name = ma.Actor.Name,
                         CharacterName = ma.CharacterName
                     })
-                    .ToList()
+                    .ToList(),
+                TotalReviews = totalReviews,
+                AverageRating = averageRating,
+                Reviews = reviewDtos
             };
 
             return response;

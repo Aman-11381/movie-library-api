@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using MovieLibrary.Data;
 using MovieLibrary.Entities;
 using MovieLibrary.Services.Movies;
+using MovieLibrary.Services.Reviews;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,8 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 
 var app = builder.Build();
 

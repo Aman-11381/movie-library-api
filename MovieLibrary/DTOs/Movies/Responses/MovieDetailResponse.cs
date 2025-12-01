@@ -1,4 +1,5 @@
 ﻿using MovieLibrary.DTOs.Common;
+using MovieLibrary.DTOs.Reviews.Response;
 
 namespace MovieLibrary.DTOs.Movies.Responses
 {
@@ -15,6 +16,10 @@ namespace MovieLibrary.DTOs.Movies.Responses
 
         public List<GenreDto> Genres { get; set; }
         public List<ActorWithCharacterDto> Actors { get; set; }
+
+        public double AverageRating { get; set; }
+        public int TotalReviews { get; set; }
+        public List<ReviewResponse> Reviews { get; set; }
     }
 
 }
