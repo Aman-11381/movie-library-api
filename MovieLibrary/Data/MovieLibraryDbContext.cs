@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieLibrary.Entities;
 
-public class MovieLibraryDbContext : DbContext
+public class MovieLibraryDbContext : IdentityDbContext<ApplicationUser>
 {
     public MovieLibraryDbContext(DbContextOptions<MovieLibraryDbContext> options)
         : base(options)
@@ -15,6 +16,7 @@ public class MovieLibraryDbContext : DbContext
     public DbSet<Actor> Actors { get; set; }
     public DbSet<MovieGenre> MovieGenres { get; set; }
     public DbSet<MovieActor> MovieActors { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
