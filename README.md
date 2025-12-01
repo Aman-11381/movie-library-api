@@ -300,26 +300,3 @@ This project strengthened my understanding of **backend engineering**, **system 
 * Caching frequently accessed data
 * Full frontend in React / Blazor
 * Deployment (Azure App Service + Azure SQL)
-
----
-
-## 👨‍💻 **About the Developer**
-
-I am a software engineer with experience in backend development, system design, cloud technologies, and building real-world applications using the .NET ecosystem.
-
-You can reach me on:
-
-* LinkedIn: *(Add link here)*
-* GitHub: *(Add your GitHub profile)*
-
----
-
-If you want, I can also generate:
-
-👉 A **project architecture diagram**,
-👉 A **UML ER diagram**,
-👉 A **flow diagram for authentication**,
-👉 A **sample Postman collection**,
-👉 A **badge section** for GitHub.
-
-Would you like to add any of these to your README?
